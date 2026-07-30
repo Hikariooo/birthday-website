@@ -37,6 +37,8 @@
             color: var(--dark);
             overflow-x: hidden;
             animation: halftoneScroll 20s linear infinite;
+            /* Retro pixel heart cursor */
+            cursor: url('data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" fill="%23ff99cc" xmlns="http://www.w3.org/2000/svg"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="%23240046" stroke-width="2"/></svg>') 12 12, auto;
         }
 
         @keyframes halftoneScroll {
@@ -83,11 +85,71 @@
             color: #ffffff;
             -webkit-text-stroke: 2px var(--dark);
             text-shadow: 4px 4px 0px var(--primary);
-            margin-top: 10px;
+            margin-top: 15px;
             display: inline-block;
-            background: var(--dark);
-            padding: 5px 15px;
+            background: #c0c0c0;
+            /* Retro Grey */
+            padding: 10px 20px;
             transform: rotate(2deg);
+            border: 4px solid var(--dark);
+            box-shadow: 8px 8px 0px var(--accent1);
+            position: relative;
+        }
+
+        .subtitle::before {
+            content: '− □ ✕';
+            position: absolute;
+            top: -24px;
+            right: -4px;
+            font-size: 1.2rem;
+            color: white;
+            -webkit-text-stroke: 0;
+            text-shadow: none;
+            letter-spacing: 5px;
+            background: var(--dark);
+            border: 4px solid var(--dark);
+            padding: 2px 8px;
+            font-family: monospace;
+        }
+
+        /* Marquee Styles */
+        .marquee-container {
+            width: 100%;
+            overflow: hidden;
+            background: var(--accent2);
+            border-top: 4px solid var(--dark);
+            border-bottom: 4px solid var(--dark);
+            padding: 10px 0;
+            position: relative;
+            z-index: 40;
+            margin-bottom: 3rem;
+            transform: rotate(-1deg);
+            box-shadow: 0 8px 0 var(--accent1);
+        }
+
+        .marquee {
+            display: flex;
+            white-space: nowrap;
+            animation: marquee 15s linear infinite;
+            font-family: 'Bangers', cursive;
+            font-size: 2rem;
+            color: var(--dark);
+            letter-spacing: 2px;
+            width: max-content;
+        }
+
+        .marquee span {
+            padding: 0 20px;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
         }
 
         /* Scrapbook Polaroid Gallery */
@@ -415,6 +477,13 @@
             <h1>HAPPY BIRTHDAY!</h1>
             <div class="subtitle">ROLLIN' INTO ANOTHER YEAR</div>
         </header>
+
+        <div class="marquee-container">
+            <div class="marquee">
+                <span>★ HAPPY BIRTHDAY ★ HAVE A RAD DAY ★ STAY WEIRD ★ KEEP SHREDDING ★ </span>
+                <span>★ HAPPY BIRTHDAY ★ HAVE A RAD DAY ★ STAY WEIRD ★ KEEP SHREDDING ★ </span>
+            </div>
+        </div>
 
         <div class="polaroid-gallery" id="gallery">
             <!-- Add photos into the 'photos' folder and they will appear here -->
