@@ -150,9 +150,9 @@
         .polaroid img {
             width: 100%;
             height: 250px;
-            object-fit: cover;
+            object-fit: contain;
             border: 3px solid var(--dark);
-            background: #eee;
+            background: #fff;
         }
 
         .polaroid-text {
@@ -186,6 +186,12 @@
             transform: rotate(15deg);
             animation: bounce 1s infinite alternate;
             z-index: 30;
+            transition: opacity 0.3s;
+        }
+
+        .envelope-wrapper.open::before {
+            opacity: 0;
+            pointer-events: none;
         }
 
         @keyframes bounce {
@@ -413,21 +419,27 @@
         <div class="polaroid-gallery" id="gallery">
             <!-- Add photos into the 'photos' folder and they will appear here -->
             <div class="polaroid" onclick="openModal(this)">
-                <img src="photos/1.jpg" alt="Please add 1.jpg to the photos folder!"
+                <img src="photos/1e84b0a7-4d0b-4c55-b50d-48fd45d1529e.jpg" alt="Photo 1"
                     onerror="this.src='https://via.placeholder.com/250x250/b100ff/ffffff?text=Add+photos/1.jpg'">
                 <div class="polaroid-text">Rad times ✌️</div>
             </div>
 
             <div class="polaroid" onclick="openModal(this)">
-                <img src="photos/2.jpg" alt="Please add 2.jpg to the photos folder!"
+                <img src="photos/2eab852d-f096-4588-9e4b-8d45c4367dee.jpg" alt="Photo 2"
                     onerror="this.src='https://via.placeholder.com/250x250/e0aaff/240046?text=Add+photos/2.jpg'">
                 <div class="polaroid-text">Skate park 🛹</div>
             </div>
 
             <div class="polaroid" onclick="openModal(this)">
-                <img src="photos/3.jpg" alt="Please add 3.jpg to the photos folder!"
+                <img src="photos/5183d617-cb8c-40a7-88f7-11bcde791347.jpg" alt="Photo 3"
                     onerror="this.src='https://via.placeholder.com/250x250/ff007f/ffffff?text=Add+photos/3.jpg'">
                 <div class="polaroid-text">Stay wild ✨</div>
+            </div>
+
+            <div class="polaroid" onclick="openModal(this)">
+                <img src="photos/97b4d341-bdfd-4305-9894-24b780ecfa2a.jpg" alt="Photo 4"
+                    onerror="this.src='https://via.placeholder.com/250x250/ff007f/ffffff?text=Add+photos/4.jpg'">
+                <div class="polaroid-text">Good vibes 🌟</div>
             </div>
         </div>
 
@@ -470,6 +482,8 @@
         function toggleEnvelope() {
             const envelope = document.getElementById('envelope');
             envelope.classList.toggle('open');
+            const wrapper = document.getElementById('envelopeWrapper');
+            wrapper.classList.toggle('open');
         }
 
         // Logic for dragging stickers
