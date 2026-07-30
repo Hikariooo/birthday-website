@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday! 🛹✨</title>
+    <!-- Importing cute fonts from Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Quicksand:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #ff9a9e;
+            /* Soft pink */
+            --secondary: #fecfef;
+            /* Lighter pink */
+            --dark: #2d3436;
+            /* Charcoal for text/borders */
+            --bg-check: #fff0f5;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Quicksand', sans-serif;
+            /* Skater-style pastel checkered background */
+            background-image:
+                linear-gradient(45deg, var(--secondary) 25%, transparent 25%, transparent 75%, var(--secondary) 75%, var(--secondary)),
+                linear-gradient(45deg, var(--secondary) 25%, transparent 25%, transparent 75%, var(--secondary) 75%, var(--secondary));
+            background-color: var(--bg-check);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Title Card */
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 8px 8px 0px var(--primary);
+            border: 3px solid var(--dark);
+            transform: rotate(-2deg);
+        }
+
+        h1 {
+            font-family: 'Caveat', cursive;
+            font-size: 4rem;
+            margin: 0;
+            color: var(--primary);
+            text-shadow: 2px 2px 0px var(--dark);
+        }
+
+        /* Polaroid Gallery */
+        .polaroid-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .polaroid {
+            background: white;
+            padding: 15px 15px 40px 15px;
+            border: 2px solid var(--dark);
+            box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, z-index 0.3s ease;
+            cursor: pointer;
+            width: 250px;
+            position: relative;
+        }
+
+        /* Make them look tossed on a table */
+        .polaroid:nth-child(1) {
+            transform: rotate(-4deg);
+        }
+
+        .polaroid:nth-child(2) {
+            transform: rotate(3deg);
+        }
+
+        .polaroid:nth-child(3) {
+            transform: rotate(-2deg);
+        }
+
+        .polaroid:hover {
+            transform: scale(1.05) rotate(0deg);
+            z-index: 10;
+        }
+
+        .polaroid img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border: 2px solid #eee;
+        }
+
+        .polaroid-text {
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            text-align: center;
+            margin-top: 10px;
+            color: var(--dark);
+        }
+
+        /* Message Board */
+        .message-board {
+            background: var(--dark);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            position: relative;
+            box-shadow: -8px 8px 0px var(--primary);
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        /* Interactive Draggable Stickers */
+        .sticker {
+            position: absolute;
+            font-size: 3.5rem;
+            user-select: none;
+            cursor: grab;
+            filter: drop-shadow(2px 2px 0px rgba(255, 255, 255, 0.5));
+        }
+
+        .sticker:active {
+            cursor: grabbing;
+        }
+
+        .st-1 {
+            top: -25px;
+            right: -20px;
+            transform: rotate(15deg);
+        }
+
+        .st-2 {
+            bottom: -20px;
+            left: -20px;
+            transform: rotate(-15deg);
+        }
+
+        .st-3 {
+            top: -20px;
+            left: 40%;
+            transform: rotate(-5deg);
+        }
+
+        /* Modal for fullscreen images */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 90vh;
+            border: 10px solid white;
+            border-radius: 5px;
+            transform: rotate(-1deg);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Happy Birthday! 🛹🌸</h1>
+            <p>Rollin' into another amazing year!</p>
+        </header>
+
+        <div class="polaroid-gallery">
+            <!-- POLAROID 1 -->
+            <div class="polaroid" onclick="openModal(this)">
+                <!-- Replace the src below with your image name -->
+                <img src="https://via.placeholder.com/250x250/ff9a9e/ffffff?text=Add+Photo+1" alt="Memory 1">
+                <div class="polaroid-text">Rad times ✌️</div>
+            </div>
+
+            <!-- POLAROID 2 -->
+            <div class="polaroid" onclick="openModal(this)">
+                <!-- Replace the src below with your image name -->
+                <img src="https://via.placeholder.com/250x250/fecfef/2d3436?text=Add+Photo+2" alt="Memory 2">
+                <div class="polaroid-text">Skate park days 🛹</div>
+            </div>
+
+            <!-- POLAROID 3 -->
+            <div class="polaroid" onclick="openModal(this)">
+                <!-- Replace the src below with your image name -->
+                <img src="https://via.placeholder.com/250x250/a29bfe/ffffff?text=Add+Photo+3" alt="Memory 3">
+                <div class="polaroid-text">Stay wild ✨</div>
+            </div>
+        </div>
+
+        <div class="message-board">
+            <!-- Stickers -->
+            <div class="sticker st-1" id="drag1">🎸</div>
+            <div class="sticker st-2" id="drag2">⭐</div>
+            <div class="sticker st-3" id="drag3">🏁</div>
+
+            <h2>Hey there!</h2>
+            <p>Just wanted to create a cute little space to celebrate you. Have the best birthday ever! Keep shredding
+                and being awesome.</p>
+            <p><em>(P.S. Try dragging the stickers around and clicking the photos!)</em></p>
+        </div>
+    </div>
+
+    <!-- The Image Modal (Hidden by default) -->
+    <div class="modal" id="imageModal" onclick="closeModal()">
+        <img id="modalImg" src="" alt="Enlarged view">
+    </div>
+
+    <script>
+        // Modal logic for clicking polaroids
+        function openModal(element) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImg');
+            const clickedImg = element.querySelector('img');
+
+            modalImg.src = clickedImg.src;
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+
+        // Logic for dragging stickers
+        function makeDraggable(element) {
+            let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            element.onmousedown = dragMouseDown;
+
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                document.onmousemove = elementDrag;
+            }
+
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                element.style.top = (element.offsetTop - pos2) + "px";
+                element.style.left = (element.offsetLeft - pos1) + "px";
+            }
+
+            function closeDragElement() {
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+
+        // Initialize draggable stickers
+        makeDraggable(document.getElementById('drag1'));
+        makeDraggable(document.getElementById('drag2'));
+        makeDraggable(document.getElementById('drag3'));
+    </script>
+</body>
+
+</html>
