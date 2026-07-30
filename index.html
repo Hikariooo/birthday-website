@@ -11,19 +11,20 @@
 
     <style>
         :root {
-            --primary: #ff9a9e;
-            /* Soft pink */
-            --secondary: #fecfef;
-            /* Lighter pink */
-            --dark: #2d3436;
-            /* Charcoal for text/borders */
-            --bg-check: #fff0f5;
+            --primary: #b100ff;
+            /* Energetic Purple */
+            --secondary: #e0aaff;
+            /* Lighter neon purple */
+            --dark: #240046;
+            /* Deep violet for text/borders */
+            --bg-check: #f3e8ff;
+            --accent: #ff007f;
+            /* Neon pink for pop */
         }
 
         body {
             margin: 0;
             font-family: 'Quicksand', sans-serif;
-            /* Skater-style pastel checkered background */
             background-image:
                 linear-gradient(45deg, var(--secondary) 25%, transparent 25%, transparent 75%, var(--secondary) 75%, var(--secondary)),
                 linear-gradient(45deg, var(--secondary) 25%, transparent 25%, transparent 75%, var(--secondary) 75%, var(--secondary));
@@ -32,6 +33,17 @@
             background-position: 0 0, 20px 20px;
             color: var(--dark);
             overflow-x: hidden;
+            animation: bgScroll 10s linear infinite;
+        }
+
+        @keyframes bgScroll {
+            0% {
+                background-position: 0 0, 20px 20px;
+            }
+
+            100% {
+                background-position: 40px 40px, 60px 60px;
+            }
         }
 
         .container {
@@ -43,13 +55,26 @@
         /* Title Card */
         header {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
             background: white;
             padding: 2rem;
             border-radius: 20px;
             box-shadow: 8px 8px 0px var(--primary);
             border: 3px solid var(--dark);
             transform: rotate(-2deg);
+            animation: pulse 2s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: rotate(-2deg) scale(1);
+                box-shadow: 8px 8px 0px var(--primary);
+            }
+
+            100% {
+                transform: rotate(-2deg) scale(1.02);
+                box-shadow: 12px 12px 0px var(--accent);
+            }
         }
 
         h1 {
@@ -58,6 +83,42 @@
             margin: 0;
             color: var(--primary);
             text-shadow: 2px 2px 0px var(--dark);
+        }
+
+        .upload-section {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .upload-btn {
+            background: var(--primary);
+            color: white;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            padding: 10px 25px;
+            border: 3px solid var(--dark);
+            border-radius: 50px;
+            box-shadow: 4px 4px 0px var(--dark);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            display: inline-block;
+        }
+
+        .upload-btn:hover {
+            transform: translate(-2px, -2px) scale(1.05);
+            box-shadow: 6px 6px 0px var(--accent);
+            background: var(--accent);
+        }
+
+        .upload-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px var(--dark);
+        }
+
+        input[type="file"] {
+            display: none;
         }
 
         /* Polaroid Gallery */
@@ -74,28 +135,43 @@
             padding: 15px 15px 40px 15px;
             border: 2px solid var(--dark);
             box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, z-index 0.3s ease;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), z-index 0.3s ease;
             cursor: pointer;
             width: 250px;
             position: relative;
+
+            --final-rot: 0deg;
+            animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
-        /* Make them look tossed on a table */
-        .polaroid:nth-child(1) {
-            transform: rotate(-4deg);
+        @keyframes popIn {
+            0% {
+                transform: scale(0) rotate(15deg);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1) rotate(var(--final-rot));
+                opacity: 1;
+            }
         }
 
-        .polaroid:nth-child(2) {
-            transform: rotate(3deg);
+        .polaroid:nth-child(3n+1) {
+            --final-rot: -4deg;
         }
 
-        .polaroid:nth-child(3) {
-            transform: rotate(-2deg);
+        .polaroid:nth-child(3n+2) {
+            --final-rot: 3deg;
+        }
+
+        .polaroid:nth-child(3n) {
+            --final-rot: -2deg;
         }
 
         .polaroid:hover {
-            transform: scale(1.05) rotate(0deg);
+            transform: scale(1.1) rotate(0deg) !important;
             z-index: 10;
+            box-shadow: 8px 8px 0px var(--accent);
         }
 
         .polaroid img {
@@ -123,6 +199,12 @@
             box-shadow: -8px 8px 0px var(--primary);
             font-size: 1.2rem;
             line-height: 1.6;
+            transition: transform 0.3s ease;
+        }
+
+        .message-board:hover {
+            transform: scale(1.02);
+            box-shadow: -10px 10px 0px var(--accent);
         }
 
         /* Interactive Draggable Stickers */
@@ -164,7 +246,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(36, 0, 70, 0.85);
             z-index: 100;
             justify-content: center;
             align-items: center;
@@ -177,6 +259,7 @@
             border: 10px solid white;
             border-radius: 5px;
             transform: rotate(-1deg);
+            box-shadow: 0px 0px 20px var(--accent);
         }
     </style>
 </head>
@@ -189,25 +272,30 @@
             <p>Rollin' into another amazing year!</p>
         </header>
 
-        <div class="polaroid-gallery">
+        <div class="upload-section">
+            <label for="imageUpload" class="upload-btn">📸 Upload a Memory!</label>
+            <input type="file" id="imageUpload" accept="image/*">
+        </div>
+
+        <div class="polaroid-gallery" id="gallery">
             <!-- POLAROID 1 -->
             <div class="polaroid" onclick="openModal(this)">
                 <!-- Replace the src below with your image name -->
-                <img src="https://via.placeholder.com/250x250/ff9a9e/ffffff?text=Add+Photo+1" alt="Memory 1">
+                <img src="https://via.placeholder.com/250x250/b100ff/ffffff?text=Add+Photo+1" alt="Memory 1">
                 <div class="polaroid-text">Rad times ✌️</div>
             </div>
 
             <!-- POLAROID 2 -->
             <div class="polaroid" onclick="openModal(this)">
                 <!-- Replace the src below with your image name -->
-                <img src="https://via.placeholder.com/250x250/fecfef/2d3436?text=Add+Photo+2" alt="Memory 2">
+                <img src="https://via.placeholder.com/250x250/e0aaff/240046?text=Add+Photo+2" alt="Memory 2">
                 <div class="polaroid-text">Skate park days 🛹</div>
             </div>
 
             <!-- POLAROID 3 -->
             <div class="polaroid" onclick="openModal(this)">
                 <!-- Replace the src below with your image name -->
-                <img src="https://via.placeholder.com/250x250/a29bfe/ffffff?text=Add+Photo+3" alt="Memory 3">
+                <img src="https://via.placeholder.com/250x250/ff007f/ffffff?text=Add+Photo+3" alt="Memory 3">
                 <div class="polaroid-text">Stay wild ✨</div>
             </div>
         </div>
@@ -280,6 +368,45 @@
         makeDraggable(document.getElementById('drag1'));
         makeDraggable(document.getElementById('drag2'));
         makeDraggable(document.getElementById('drag3'));
+
+        // Image Upload Logic
+        const imageUpload = document.getElementById('imageUpload');
+        const gallery = document.getElementById('gallery');
+        let newImageCount = 0;
+
+        imageUpload.addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    newImageCount++;
+                    const newPolaroid = document.createElement('div');
+                    newPolaroid.className = 'polaroid';
+
+                    // Assign a random ending rotation matching our CSS logic so they don't all look the same
+                    const rotations = ['-4deg', '3deg', '-2deg', '5deg', '-6deg'];
+                    const randomRot = rotations[Math.floor(Math.random() * rotations.length)];
+                    newPolaroid.style.setProperty('--final-rot', randomRot);
+
+                    newPolaroid.onclick = function () { openModal(this); };
+
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.alt = "New Memory " + newImageCount;
+
+                    const text = document.createElement('div');
+                    text.className = 'polaroid-text';
+                    text.textContent = 'New Memory ✨';
+
+                    newPolaroid.appendChild(img);
+                    newPolaroid.appendChild(text);
+
+                    // Add it at the beginning of the gallery
+                    gallery.prepend(newPolaroid);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
     </script>
 </body>
 
