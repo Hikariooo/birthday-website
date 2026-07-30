@@ -36,9 +36,23 @@
             background-position: 0 0, 12px 12px;
             color: var(--dark);
             overflow-x: hidden;
-            animation: halftoneScroll 20s linear infinite;
+            animation: halftoneScroll 20s linear infinite, bgPulse 15s ease-in-out infinite alternate;
             /* Retro pixel heart cursor */
             cursor: url('data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" fill="%23ff99cc" xmlns="http://www.w3.org/2000/svg"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="%23240046" stroke-width="2"/></svg>') 12 12, auto;
+        }
+
+        @keyframes bgPulse {
+            0% {
+                background-color: var(--secondary);
+            }
+
+            50% {
+                background-color: #f7e6ff;
+            }
+
+            100% {
+                background-color: #fdf5ff;
+            }
         }
 
         @keyframes halftoneScroll {
@@ -77,6 +91,18 @@
             text-shadow: 8px 8px 0px var(--accent1);
             letter-spacing: 3px;
             line-height: 1;
+            display: inline-block;
+            animation: titlePulse 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titlePulse {
+            0% {
+                transform: scale(1) rotate(0deg);
+            }
+
+            100% {
+                transform: scale(1.05) rotate(2deg);
+            }
         }
 
         .subtitle {
@@ -190,20 +216,49 @@
             background-image: repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(0, 0, 0, 0.05) 5px, rgba(0, 0, 0, 0.05) 10px);
         }
 
+        .polaroid {
+            animation: float 6s ease-in-out infinite;
+        }
+
         .polaroid:nth-child(1) {
-            transform: rotate(-8deg);
+            --rot: -8deg;
+            transform: rotate(var(--rot));
+            animation-delay: 0s;
         }
 
         .polaroid:nth-child(2) {
-            transform: rotate(5deg);
+            --rot: 5deg;
             margin-top: 30px;
+            transform: rotate(var(--rot));
+            animation-delay: 1.5s;
         }
 
         .polaroid:nth-child(3) {
-            transform: rotate(-4deg);
+            --rot: -4deg;
+            transform: rotate(var(--rot));
+            animation-delay: 0.7s;
+        }
+
+        .polaroid:nth-child(4) {
+            --rot: 3deg;
+            transform: rotate(var(--rot));
+            animation-delay: 2s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(var(--rot));
+            }
+
+            50% {
+                transform: translateY(-15px) rotate(calc(var(--rot) + 2deg));
+            }
         }
 
         .polaroid:hover {
+            animation-play-state: paused !important;
             transform: scale(1.15) rotate(0deg) !important;
             z-index: 20;
             box-shadow: 12px 12px 0px var(--accent2);
@@ -366,6 +421,22 @@
             width: 180px;
             height: auto;
             pointer-events: none;
+            animation: stickerWiggle 4s ease-in-out infinite alternate;
+        }
+
+        .sticker:nth-child(even) img {
+            animation-duration: 5s;
+            animation-direction: alternate-reverse;
+        }
+
+        @keyframes stickerWiggle {
+            0% {
+                transform: rotate(-4deg) scale(0.95);
+            }
+
+            100% {
+                transform: rotate(4deg) scale(1.05);
+            }
         }
 
         .sticker:active {
